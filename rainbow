@@ -22,7 +22,7 @@ NextFrame
         lda #0
         sta VSYNC
         
-        ldx #37
+        ldx #37 ; counts 37 scanlines
 LVBlank
 	sta WSYNC
         dex
