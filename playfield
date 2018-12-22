@@ -31,19 +31,25 @@ LVBlank	sta WSYNC
         stx VBLANK
 ; Draw the 192 scanlines
 	ldx #192
-	;lda #0		; changes every scanline
-        ;lda Counter    ; uncomment to scroll!
+        lda #1          ; ctrlpf mirrors the playfield when
+        		; the bit is set to on
+        sta CTRLPF
 lvscan
 	sta WSYNC	; wait for next scanline
-        lda #128        ; populate a bit from 16 through 128
-	sta PF0		; set the PF1 playfield pattern register
+        lda #16         ; populate a bit from 16 through 128
+	sta PF0		; set the PF0 playfield pattern register
+ 
+ 	;TODO
+        ;cpx #$C0
+  	bne .skip_pf1
         lda #1		; load into the a register the bit that
         		; represents which pixels to populate
 	sta PF1		; set the PF1 playfield pattern register
-        lda #16
-	sta PF2		; set the PF2 playfield pattern register
+        ;lda #16
+	;sta PF2	; set the PF2 playfield pattern register
 	;stx COLUBK	; set the background color
-        ldy #$82	; load a blue as the forground color
+.skip_pf1
+        ldy #$60	; load a blue as the forground color
         sty COLUPF	; store blue into the pf color register
         clc
 	;adc #1		; increment A
