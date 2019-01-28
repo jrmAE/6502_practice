@@ -49,7 +49,7 @@ DivideLoop
 ; We'll convert that into a fine adjustment, which has
 ; the range -8 to +7.
 	eor #7
-	asl		; HMOVE only uses the top 4 bits, so shift by 4
+	asl ; HMOVE only uses the top 4 bits, so shift by 4
 	asl
 	asl
 	asl
@@ -62,6 +62,8 @@ DivideLoop
 ; Finally we'll do a WSYNC followed by HMOVE to apply the fine offset.
 	sta WSYNC	; 36th line
 	sta HMOVE	; apply offset
+        ; with this commented out, the offset is never applied, so only
+        ; increments of 15 get applied
 
 ; We'll see this method again, and it can be made into a subroutine
 ; that works on multiple objects.
@@ -98,22 +100,23 @@ lvover	sta WSYNC
 ; Cycle the sprite colors for the next frame
 	inc counter
 	lda counter
-	sta COLUP0
+	lda #$d5
+        sta COLUP0
 	jmp nextframe
 
 ; Bitmap pattern for digits
 
 NUMBERS ;;{w:8,h:6,count:10,brev:1};;
-	.byte $EE,$AA,$AA,$AA,$EE,$00
-        .byte $22,$22,$22,$22,$22,$00
-        .byte $EE,$22,$EE,$88,$EE,$00
-        .byte $EE,$22,$66,$22,$EE,$00
-        .byte $AA,$AA,$EE,$22,$22,$00
-        .byte $EE,$88,$EE,$22,$EE,$00
-        .byte $EE,$88,$EE,$AA,$EE,$00
-        .byte $EE,$22,$22,$22,$22,$00
-        .byte $EE,$AA,$EE,$AA,$EE,$00
-        .byte $EE,$AA,$EE,$22,$EE,$00
+	.byte $EE,$AA,$AA,$AA,$EE,$00 ;;sprite for 0
+        .byte $22,$22,$22,$22,$22,$00 ; 1
+        .byte $EE,$22,$EE,$88,$EE,$00 ; 2
+        .byte $EE,$22,$66,$22,$EE,$00 ; 3
+        .byte $AA,$AA,$EE,$22,$22,$00 ; 4
+        .byte $EE,$88,$EE,$22,$EE,$00 ; 5
+        .byte $EE,$88,$EE,$AA,$EE,$00 ; 6
+        .byte $EE,$22,$22,$22,$22,$00 ; 7
+        .byte $EE,$AA,$EE,$AA,$EE,$00 ; 8 
+        .byte $EE,$AA,$EE,$22,$EE,$00 ; 9
 
 ; Epilogue
 	org $fffc
