@@ -2,6 +2,7 @@
 ; Assembler should use basic 6502 instructions
 	processor 6502
 	
+; git dasm rainbow.asm -lrainbow.txt -f3 -v5 -orainbow.bin -Iincludes
 ; Include files for Atari 2600 constants and handy macro routines
 	include "vcs.h"
 	include "macro.h"

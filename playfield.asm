@@ -6,6 +6,7 @@
 	org  $f000
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; dasm playfield.asm -lplayfield.txt -f3 -v5 -oplayfield.bin -Iincludes
 ;	
 ; We're going to mess with the playfield registers, PF0, PF1 and PF2.
 ; Between them, they represent 20 bits of bitmap information
