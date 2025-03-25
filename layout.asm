@@ -1,18 +1,5 @@
-; S01E02 Generating a stable screen
-
-; This example creates the proper VSYNC, and number of scanlines to generate a stable frame on NTSC
-; televisions.
-
 ; This Episode on Youtube - https://youtu.be/WcRtIpvjKNI
 
-; Become a Patron - https://patreon.com/8blit
-; 8blit Merch - https://8blit.myspreadshop.com/
-; Subscribe to 8Blit - https://www.youtube.com/8blit?sub_confirmation=1
-; Follow on Facebook - https://www.facebook.com/8Blit
-; Follow on Instagram - https://www.instagram.com/8blit
-; Visit the Website - https://www.8blit.com 
-
-; Email - 8blit0@gmail.com
 
 	processor 6502
 	include "vcs.h"
@@ -31,8 +18,8 @@ clear:                       ;              define a label
 	inx                      ;              inc (x) by 1. it will count to 255 then rollover to 0
 	bne clear                ;              branch up to the 'clear' label if (x) != 0
 
-	lda #GREEN                ;              load the value from the symbol 'blue' into (a)
-	sta COLUBK               ;              store (a) into the TIA background color register
+	lda #GREEN                ;              load the value from the symbol into (a)
+	;sta COLUBK               ;              store (a) into the TIA background color register
 
 startFrame:
 	; start of new frame
@@ -62,6 +49,8 @@ verticalBlank:
 	; generate 192 lines of playfield
 	ldx #0
 playfield:
+	stx COLUBK
+
 	sta WSYNC
 ;--------------------------------------
 	inx
