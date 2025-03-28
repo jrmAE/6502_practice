@@ -17,7 +17,7 @@
 	processor 6502
 	include "includes/vcs.h"
 	include "includes/macro.h"
-
+	
 BLUE           = $9a         ;              define symbol for TIA color (NTSC)
 
 	seg Code
@@ -79,8 +79,10 @@ verticalBlank:
 	bne verticalBlank        ;              branch to 'verticalBlank' label if compare not equal
 
     ; we are now in the visible frame, which is 192 scan lines. 
-	; each line of the 192 because with a horizontal blank period of 32 color clocks,
+	; each scan line has 228 color clocks
+	; starting with a horizontal blank period of 68 color clocks,
 	; followed by 160 color clocks.
+	; visible frame starts on the 69th color clock, which starts 160 color clocks
 
 	; generate 192 lines of playfield
 	ldx #0
